@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tesseract.js OCR Demo</title>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+</head>
+<body>
+  <input type="file" id="imageInput">
+  <p id="outputText">Extracted text will appear here</p>
+
+  <script>
+    document.getElementById('imageInput').addEventListener('change', async (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const result = await Tesseract.recognize(
+          file,
+          'eng', // Language
+          {
+            logger: m => console.log(m) // Optional logger
+          }
+        );
+        document.getElementById('outputText').innerText = result.data.text;
+      }
+    });
+  </script>
+</body>
+</html>
